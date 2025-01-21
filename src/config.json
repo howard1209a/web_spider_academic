@@ -1,0 +1,7 @@
+{
+  "sender_email": "your_email@example.com",
+  "receiver_email": "receiver_email@example.com",
+  "email_authorization_code": "your_email_authorization_code",
+  "baidu_translate_api_appid": "your_baidu_translate_api_appid",
+  "baidu_translate_api_appkey": "your_baidu_translate_api_appkey"
+}
