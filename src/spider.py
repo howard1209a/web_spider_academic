@@ -1,6 +1,6 @@
 import os
 from docx import Document
-from get_data_ubuntu import Spider, sciencedirect_dict
+from get_data_ubuntu import Spider, sciencedirect_dict, sciencedirect_name_dict
 from datetime import datetime
 from send_user_email import send_email
 import sys
@@ -50,9 +50,11 @@ def handle_wiley_task(latest_paper, document):
 
 def handle_sciencedirect_task(journal, latest_paper, start_volume, document):
     global sciencedirect_dict
+    global sciencedirect_name_dict
+
     sciencedirect_dict[journal] = 1
 
-    add_line_to_document(document, "en", journal, True)
+    add_line_to_document(document, "en", sciencedirect_name_dict[journal], True)
     add_line_to_document(document, "en", "Most recent:", True)
 
     search_end = False
