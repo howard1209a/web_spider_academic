@@ -149,9 +149,10 @@ class Spider:
             doi = item.find('div', hidden=True).text
 
             if title != latest_document:
-                add_line_to_document(document_writer, "en", str(wiley_index) + ". " + title, False)
+                add_line_to_document(document_writer, "en", str(sciencedirect_dict[journal]) + ". " + title, False)
                 add_line_to_document(document_writer, "en", doi, False)
                 add_line_to_document(document_writer, "zh", baidu_api(title), False)
+                sciencedirect_dict[journal] += 1
             else:
                 should_end = True
                 break
