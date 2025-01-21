@@ -1,3 +1,4 @@
+import os
 from docx import Document
 from get_data_ubuntu import Spider, sciencedirect_dict
 from datetime import datetime
@@ -16,6 +17,14 @@ def trigger_spider_task(wiley_paper, sciencedirect_paper1, sciencedirect_paper2,
 
     # 获取当前时间
     current_time = datetime.now()
+
+    # 定义文件夹路径
+    folder_path = '../data'
+
+    # 检查文件夹是否存在
+    if not os.path.exists(folder_path):
+        # 文件夹不存在，则创建
+        os.makedirs(folder_path)
 
     # 格式化为精确到秒的字符串
     file_name = "../data/" + current_time.strftime('%Y-%m-%d %H:%M:%S') + ".docx"
