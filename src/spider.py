@@ -1,8 +1,9 @@
 from docx import Document
-from get_data_ubuntu import Spider
+from get_data_ubuntu import Spider, sciencedirect_dict
 from datetime import datetime
 from send_user_email import send_email
 import sys
+from document_format import add_line_to_document
 
 
 def trigger_spider_task(wiley_paper, sciencedirect_paper1, sciencedirect_paper2, sciencedirect_volume1,
@@ -25,6 +26,9 @@ def trigger_spider_task(wiley_paper, sciencedirect_paper1, sciencedirect_paper2,
 
 
 def handle_wiley_task(latest_paper, document):
+    add_line_to_document(document, "en", "Computer-Aided Civil and Infrastructure Engineering", True)
+    add_line_to_document(document, "en", "Most recent:", True)
+
     search_end = False
     page_index = 0
 
@@ -36,6 +40,12 @@ def handle_wiley_task(latest_paper, document):
 
 
 def handle_sciencedirect_task(journal, latest_paper, start_volume, document):
+    global sciencedirect_dict
+    sciencedirect_dict[journal] = 1
+
+    add_line_to_document(document, "en", journal, True)
+    add_line_to_document(document, "en", "Most recent:", True)
+
     search_end = False
     volume_index = int(start_volume)
 
@@ -47,7 +57,6 @@ def handle_sciencedirect_task(journal, latest_paper, start_volume, document):
 
 
 if __name__ == "__main__":
-
 
     # 检查传递给脚本的参数是否正确
     if len(sys.argv) != 6:

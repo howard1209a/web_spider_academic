@@ -5,9 +5,10 @@ from bs4 import BeautifulSoup
 import shutil
 from translate import baidu_api
 import re
+from document_format import add_line_to_document
 
-
-# from docx import Document
+wiley_index = 1
+sciencedirect_dict = {}
 
 
 class Spider:
@@ -68,6 +69,8 @@ class Spider:
 
     # https://onlinelibrary.wiley.com/action/doSearch?SeriesKey=14678667&sortBy=Earliest
     def get_wiley_single_page(self, latest_document, page, document_writer):
+        global wiley_index
+
         soup = self.get_url(
             "https://onlinelibrary.wiley.com/action/doSearch?SeriesKey=14678667&sortBy=Earliest&startPage=" + str(
                 page))
@@ -90,9 +93,10 @@ class Spider:
 
             if title != latest_document:
                 # 写入文献信息到 Word 文档
-                document_writer.add_paragraph(f"文献题目: {title}")
-                document_writer.add_paragraph(f"文献中文题目: {baidu_api(title)}")
-                document_writer.add_paragraph(f"DOI: {doi_url}")
+                add_line_to_document(document_writer, "en", str(wiley_index) + ". " + title, False)
+                add_line_to_document(document_writer, "en", doi_url, False)
+                add_line_to_document(document_writer, "zh", baidu_api(title), False)
+                wiley_index += 1
             else:
                 should_end = True
                 break
@@ -145,9 +149,9 @@ class Spider:
             doi = item.find('div', hidden=True).text
 
             if title != latest_document:
-                document_writer.add_paragraph(f"文献题目: {title}")
-                document_writer.add_paragraph(f"文献中文题目: {baidu_api(title)}")
-                document_writer.add_paragraph(f"DOI: {doi}")
+                add_line_to_document(document_writer, "en", str(wiley_index) + ". " + title, False)
+                add_line_to_document(document_writer, "en", doi, False)
+                add_line_to_document(document_writer, "zh", baidu_api(title), False)
             else:
                 should_end = True
                 break
