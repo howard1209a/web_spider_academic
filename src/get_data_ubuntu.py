@@ -5,7 +5,9 @@ from bs4 import BeautifulSoup
 import shutil
 from translate import baidu_api
 import re
-from docx import Document
+
+
+# from docx import Document
 
 
 class Spider:
@@ -91,7 +93,6 @@ class Spider:
                 document_writer.add_paragraph(f"文献题目: {title}")
                 document_writer.add_paragraph(f"文献中文题目: {baidu_api(title)}")
                 document_writer.add_paragraph(f"DOI: {doi_url}")
-                document_writer.add_paragraph("-" * 50)
             else:
                 should_end = True
                 break
@@ -141,13 +142,12 @@ class Spider:
             title = item.find('span', class_='js-article-title text-l').text.strip()
 
             # 2. 获取 DOI
-            doi = item.find('div', hidden=True).get('value')
+            doi = item.find('div', hidden=True).text
 
             if title != latest_document:
                 document_writer.add_paragraph(f"文献题目: {title}")
                 document_writer.add_paragraph(f"文献中文题目: {baidu_api(title)}")
                 document_writer.add_paragraph(f"DOI: {doi}")
-                document_writer.add_paragraph("-" * 50)
             else:
                 should_end = True
                 break
