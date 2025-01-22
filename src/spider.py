@@ -1,6 +1,6 @@
 import os
 from docx import Document
-from get_data_ubuntu import Spider, sciencedirect_dict, sciencedirect_name_dict
+from get_data_ubuntu import Spider
 from datetime import datetime
 from send_user_email import send_email
 import sys
@@ -15,22 +15,18 @@ def trigger_spider_task(wiley_paper, sciencedirect_paper1, sciencedirect_paper2,
     handle_sciencedirect_task("automation-in-construction", sciencedirect_paper1, sciencedirect_volume1, document)
     handle_sciencedirect_task("journal-of-building-engineering", sciencedirect_paper2, sciencedirect_volume2, document)
 
-    # 获取当前时间
     current_time = datetime.now()
 
-    # 定义文件夹路径
     folder_path = '../data'
-
-    # 检查文件夹是否存在
+    # 保证文件夹存在
     if not os.path.exists(folder_path):
-        # 文件夹不存在，则创建
         os.makedirs(folder_path)
 
-    # 格式化为精确到秒的字符串
+    # word文档名称为当前时间，精确到秒
     file_name = "../data/" + current_time.strftime('%Y-%m-%d %H:%M:%S') + ".docx"
-    # 保存文档到文件
+    # 保存word文档
     document.save(file_name)
-
+    # 发送邮件
     send_email(file_name)
 
 
@@ -68,27 +64,11 @@ def handle_sciencedirect_task(journal, latest_paper, start_volume, document):
 
 
 if __name__ == "__main__":
-
-    # 检查传递给脚本的参数是否正确
-    if len(sys.argv) != 6:
-        print(
-            "Usage: python spider.py <wiley_paper> <sciencedirect_paper1> <sciencedirect_paper2> <sciencedirect_volume1> <sciencedirect_volume2>")
-        sys.exit(1)
-
-    # 获取命令行参数
     wiley_paper = sys.argv[1]
     sciencedirect_paper1 = sys.argv[2]
     sciencedirect_paper2 = sys.argv[3]
     sciencedirect_volume1 = sys.argv[4]
     sciencedirect_volume2 = sys.argv[5]
-
-    # 打印接收到的参数
-    print("Received parameters:")
-    print("wiley_paper:", wiley_paper)
-    print("sciencedirect_paper1:", sciencedirect_paper1)
-    print("sciencedirect_paper2:", sciencedirect_paper2)
-    print("sciencedirect_volume1:", sciencedirect_volume1)
-    print("sciencedirect_volume2:", sciencedirect_volume2)
 
     trigger_spider_task(wiley_paper, sciencedirect_paper1, sciencedirect_paper2, sciencedirect_volume1,
                         sciencedirect_volume2)

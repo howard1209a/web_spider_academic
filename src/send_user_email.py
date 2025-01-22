@@ -8,19 +8,12 @@ import config
 
 
 def send_email(filename):
-    # 邮件发件人、收件人和授权码
-    sender_email = config.get_sender_email()
-    receiver_email = config.get_receiver_email()
-    email_authorization_code = config.get_email_authorization_code()  # QQ邮箱授权码
+    sender_email = config.get_sender_email()  # 发件邮箱
+    receiver_email = config.get_receiver_email()  # 收件邮箱
+    email_authorization_code = config.get_email_authorization_code()  # 发件邮箱授权码
 
-    # 获取当前日期
     current_date = datetime.now()
-
-    # 将当前日期转换为字符串，格式：'YYYY-MM-DD'
-    date_string = current_date.strftime('%Y-%m-%d')
-
-    # 邮件内容
-    subject = date_string + "-请查收本周文献追踪"
+    subject = current_date.strftime('%Y-%m-%d') + "-请查收本周文献追踪"
 
     # 创建邮件
     message = MIMEMultipart()

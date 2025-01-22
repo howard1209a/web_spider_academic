@@ -24,15 +24,11 @@ def baidu_api(query):
     salt = random.randint(32768, 65536)
     sign = make_md5(baidu_translate_api_appid + query + str(salt) + baidu_translate_api_appkey)
 
-    # Build request
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     payload = {'appid': baidu_translate_api_appid, 'q': query, 'from': from_lang, 'to': to_lang, 'salt': salt,
                'sign': sign}
 
-    # Send request
     r = requests.post(url, params=payload, headers=headers)
     result = r.json()
 
-    # Show response
-    # print(json.dumps(result, indent=4, ensure_ascii=False))
     return result["trans_result"][0]['dst']
