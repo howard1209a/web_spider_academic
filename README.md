@@ -26,7 +26,7 @@ docker load -i spider.tar
 git clone https://github.com/howard1209a/web_spider_academic.git
 
 # 填入自己的配置，具体配置含义以及如何申请查看下文
-vim ~/web_spider_academic/src/config.json
+vim ~/web_spider_academic/config.json
 
 # 执行Dockerfile生成新镜像
 cd ~/web_spider_academic

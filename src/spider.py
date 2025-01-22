@@ -1,6 +1,6 @@
 import os
 from docx import Document
-from get_data_ubuntu import Spider
+from get_data_ubuntu import Spider, sciencedirect_dict, sciencedirect_name_dict
 from datetime import datetime
 from send_user_email import send_email
 import sys
