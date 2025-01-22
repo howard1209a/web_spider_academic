@@ -19,12 +19,37 @@ scp spider.tar root@server_ip:~/
 ssh root@server_ip
 cd ~
 
-# 假设服务器已经安装了docker，加载镜像
+# 假设服务器已经安装了docker，从tar文件加载镜像
 docker load -i spider.tar
+
+# 假设服务器已经安装了git
+git clone https://github.com/howard1209a/web_spider_academic.git
+
+# 填入自己的配置，具体配置含义以及如何申请查看下文
+vim ~/web_spider_academic/src/config.json
+
+# 执行Dockerfile生成新镜像
+cd ~/web_spider_academic
+docker build -t web_spider_academic .
+
+# 启动容器
+docker run -d -p 5000:5000 web_spider_academic
+
+
+
+
+
 
 
 
 ```
 ## 裸机部署（配置环境繁琐）
 ## 修改源码并通过docker部署
+# 配置文件
+config.json配置文件
+- sender_email：邮件发送者邮箱
+- receiver_email：邮件接收者邮箱
+- email_authorization_code：邮件发送者邮箱的校验码，具体查看方式参照下文博客
+- baidu_translate_api_appid：百度翻译api的appid，具体申请方式参照下文博客
+- baidu_translate_api_appkey：百度翻译api的appid，具体申请方式参照下文博客
 # 系统设计

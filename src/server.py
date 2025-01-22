@@ -19,7 +19,7 @@ def start_spider():
     try:
         # 启动子进程，执行spider.py
         subprocess.run(
-            ["python", "spider.py", wiley_paper, sciencedirect_paper1, sciencedirect_paper2, sciencedirect_volume1,
+            ["python", "src/spider.py", wiley_paper, sciencedirect_paper1, sciencedirect_paper2, sciencedirect_volume1,
              sciencedirect_volume2], check=True)
         return "Spider started successfully!", 200
     except Exception as e:
