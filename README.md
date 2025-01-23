@@ -30,10 +30,10 @@ docker load -i spider.tar
 # 假设服务器已经安装了git
 git clone https://github.com/howard1209a/web_spider_academic.git
 
-# 填入自己的配置，具体配置含义以及如何申请请查看下文
+# 填入自己的配置，具体配置含义请查看下文
 vim ~/web_spider_academic/config.json
 
-# 执行Dockerfile生成新镜像
+# 执行Dockerfile生成web_spider_academic镜像
 cd ~/web_spider_academic
 docker build -t web_spider_academic .
 
@@ -198,7 +198,7 @@ sudo mkfontscale
 sudo mkfontdir
 sudo fc-cache -fv
 
-# 列出所有字体，此时存在宋体
+# 列出所有字体，此时应该已经存在宋体
 fc-list
 ```
 
